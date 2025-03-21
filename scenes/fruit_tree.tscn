@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://ciyf8lp1h02ar"]
+
+[ext_resource type="Script" path="res://scripts/fruit_tree.gd" id="1_wtu46"]
+[ext_resource type="Texture2D" uid="uid://da48nfptg1ijq" path="res://sprites/interactable_objects.png" id="2_pqqw6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rancm"]
+radius = 16.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l82xy"]
+radius = 4.0
+height = 8.0
+
+[node name="FruitTree" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_wtu46")
+
+[node name="FruitTreeShape" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_rancm")
+
+[node name="SolidBody" type="StaticBody2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="SolidShape" type="CollisionShape2D" parent="SolidBody"]
+rotation = 1.55509
+shape = SubResource("CapsuleShape2D_l82xy")
+disabled = true
+
+[node name="Sprites" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+scale = Vector2(2, 2)
+texture = ExtResource("2_pqqw6")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(32, 32, 32, 16)

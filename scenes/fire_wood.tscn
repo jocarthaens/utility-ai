@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6f83jp6dp37l"]
+
+[ext_resource type="Script" path="res://scripts/fire_wood.gd" id="1_4gwg0"]
+[ext_resource type="Texture2D" uid="uid://cgfi2hoefayqw" path="res://sprites/swamp_ [resources].png" id="1_cq8k1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bphcu"]
+radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyaiv"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_twigg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rx51e"]
+resource_name = "burning"
+length = 0.6667
+loop_mode = 1
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3334, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_xjkej"]
+resource_name = "extinguished"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_snx2s"]
+_data = {
+"RESET": SubResource("Animation_twigg"),
+"burning": SubResource("Animation_rx51e"),
+"extinguished": SubResource("Animation_xjkej")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf7gn"]
+bg_color = Color(0.175284, 0.115656, 0.0576584, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0os6"]
+bg_color = Color(0.890394, 0.46393, 0.289668, 1)
+
+[node name="FireWood" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_4gwg0")
+
+[node name="FirewoodArea" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bphcu")
+
+[node name="SolidBody" type="StaticBody2D" parent="."]
+
+[node name="SolidShape" type="CollisionShape2D" parent="SolidBody"]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jyaiv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("1_cq8k1")
+hframes = 5
+region_enabled = true
+region_rect = Rect2(96, 120, 80, 24)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_snx2s")
+}
+
+[node name="KindleHP" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -13.0
+offset_top = 7.0
+offset_right = 13.0
+offset_bottom = 11.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mf7gn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n0os6")
+max_value = 10.0
+step = 1.0
+show_percentage = false
