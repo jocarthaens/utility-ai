@@ -9,6 +9,7 @@ A custom implementation of Utility AI framework.
 
 ## Demo
 Included is a demo about a survivor stranded on an island. The survivor's goals are to maintain the firewood crackling by supplying it with wood, satisfy hunger by foraging for food, and restore energy by sleeping. The survivor, when performing actions, is locked into a specific goal until either its targeted score is satisfied, or the survivor ran out of energy and needs to sleep near the firewood.
+
 ---
 ![utility](https://github.com/user-attachments/assets/e3a788c9-6dca-4eae-b7fa-cf24b0c9c42a)
 ---
